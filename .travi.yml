@@ -1,0 +1,11 @@
+sudo: required
+services: 
+  - docker
+
+
+before_install:
+  - docker build -t katedou/frontend -f ./exercise/frontend/Dockerfile.dev ./exercise/frontend/
+
+script:
+  - cd ./exercise/frontend
+  - docker run -e CI=true katedou/frontend npm run test
