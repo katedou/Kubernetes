@@ -7,3 +7,16 @@ before_install:
 script:
   - cd ./exercise/frontend
   - docker run -e CI=true katedou/frontend npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-frontend"
+  env: "DockerFrontend-env"
+  bucket_name: "elasticbeanstalk-us-east-2-710128592938"
+  bucket_path: "docker-frontend"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
